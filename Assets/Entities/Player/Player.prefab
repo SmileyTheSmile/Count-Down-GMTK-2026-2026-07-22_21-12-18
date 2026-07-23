@@ -141,12 +141,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc1bdfb492b1104791cfd270a7f95ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkDown: {fileID: 4176692798699953902}
-  checkUp: {fileID: 2543985294249079040}
-  checkLeft: {fileID: 1521629308062548353}
-  checkRight: {fileID: 4446000965398616413}
-  rigidbody: {fileID: 5293120812251372146}
-  gravity: {x: 0, y: -9.81}
+  _checkDown: {fileID: 4176692798699953902}
+  _checkUp: {fileID: 2543985294249079040}
+  _checkLeft: {fileID: 1521629308062548353}
+  _checkRight: {fileID: 4446000965398616413}
+  _rigidbody: {fileID: 5293120812251372146}
+  _acceleration: 5
+  _maxSpeed: 20
 --- !u!50 &5293120812251372146
 Rigidbody2D:
   serializedVersion: 4
