@@ -23,25 +23,32 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             _gravityDirection = Vector2.up;
-            _rigidbody.velocity = new Vector2(0f, _rigidbody.velocity.y);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             _gravityDirection = Vector2.down;
-            _rigidbody.velocity = new Vector2(0f, _rigidbody.velocity.y);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
             _gravityDirection = Vector2.left;
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.y, 0f);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             _gravityDirection = Vector2.right;
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.y, 0f);
         }
+    }
 
+    private void FixedUpdate()
+    {
         _currSpeed = Mathf.MoveTowards(_currSpeed, _maxSpeed, _acceleration * Time.fixedDeltaTime);
         _rigidbody.velocity = _currSpeed * _gravityDirection;
+
+        if (_checkDown.IsColliding || _checkUp.IsColliding || _checkLeft.IsColliding || _checkRight.IsColliding)
+        {
+            _currSpeed = 0;
+        }
+
+        Debug.Log(_checkDown.IsColliding);
+        Debug.Log(_checkUp.IsColliding);
     }
 }
