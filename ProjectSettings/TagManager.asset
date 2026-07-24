@@ -3,17 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Background
   - Water
   - UI
+  - Ground
+  - Enemies
   - Player
-  - 
-  - 
   - 
   - 
   - 
@@ -43,6 +44,15 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 2346041411
+    locked: 0
+  - name: Ground
+    uniqueID: 2882946589
+    locked: 0
+  - name: Enemies
+    uniqueID: 2972562361
+    locked: 0
+  - name: Peasants
+    uniqueID: 1016324703
     locked: 0
   - name: Player
     uniqueID: 1565993217

@@ -5,13 +5,21 @@ using UnityEngine;
 public class CollisionCheck : MonoBehaviour
 {
     public bool IsColliding { get; private set; }
+    public string groundLayerName = "Ground";
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        IsColliding = true;
+        if (other.gameObject.layer == LayerMask.NameToLayer(groundLayerName))
+        {
+            IsColliding = true;
+        }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+
+    private void OnTriggerExit2D(Collider2D other)
     {
-        IsColliding = false;
+        if (other.gameObject.layer == LayerMask.NameToLayer(groundLayerName))
+        {
+            IsColliding = false;
+        }
     }
 }
