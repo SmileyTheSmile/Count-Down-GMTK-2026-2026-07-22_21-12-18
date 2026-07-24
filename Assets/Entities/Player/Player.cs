@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     private Vector2 _gravityDirection = Vector2.down;
     private float _currSpeed = 0;
     private bool _isGrounded = false;
+    private bool _canMove = true;
+    private bool _isKnockedBack = false;
 
     #region Unity Functions
 
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         ProcessMovement();
+        Debug.Log($"Is Grounded: {_isGrounded}");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,15 +44,17 @@ public class Player : MonoBehaviour
             switch (collision.gameObject.layer)
             {
                 case int layerValue when layerValue == LayerMask.NameToLayer("Enemies"):
-                    OnEnemyHit(collision);
+                    TouchedEnemy(collision);
                     break;
                 case int layerValue when layerValue == LayerMask.NameToLayer("Ground"):
-                    OnGroundHit(collision);
+                    Debug.Log("Player hit the ground");
+                    SoundManager.Instance.PlaySound("playerHitGround", transform);
+                    Stop();
+                    _isGrounded = true;
                     break;
                 default:
-                    _currSpeed = 0f;
-                    _rigidbody.velocity = Vector2.zero;
-                    _isGrounded = true;
+                    Debug.Log("Player hit the unknown");
+                    Stop();
                     break;
             }
         }
@@ -58,23 +63,6 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Custom Functions
-    private void OnEnemyHit(Collision2D collision)
-    {
-        Debug.Log("Player hit a enemy");
-        _currSpeed = 0f;
-        _rigidbody.velocity = Vector2.zero;
-        _isGrounded = true;
-
-        SoundManager.Instance.PlaySound("playerHurt", transform);
-        _bloodNum -= 1;
-    }
-
-    private void OnGroundHit(Collision2D collision)
-    {
-        _currSpeed = 0f;
-        _rigidbody.velocity = Vector2.zero;
-        _isGrounded = true;
-    }
 
     private void ChangeGravityDirection(Vector2 newDirection)
     {
@@ -111,5 +99,24 @@ public class Player : MonoBehaviour
         _rigidbody.velocity = _currSpeed * _gravityDirection;
     }
     
+    private void Hurt()
+    {
+        _bloodNum -= 1;
+        SoundManager.Instance.PlaySound("playerHurt", transform);
+        CinemachineShake.Instance.ShakeCamera(5f, 0.1f);
+    }
+    private void TouchedEnemy(Collision2D collision)
+    {
+        Debug.Log("Player hit the enemy");
+        Stop();
+        Hurt();
+    }
+
+    private void Stop()
+    {
+        _currSpeed = 0f;
+        _rigidbody.velocity = Vector2.zero;
+    }
+
     #endregion
 }

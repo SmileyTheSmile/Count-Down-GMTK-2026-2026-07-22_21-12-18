@@ -50,9 +50,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 7d2a01c52af455142a6592f621dbe700, type: 3}
     minPitch: 1
     maxPitch: 1
-    volume: 1
+    volume: 0.5
   - name: playerHurt
     clip: {fileID: 8300000, guid: 74bdaed6638015a4f8e802614f6d480c, type: 3}
+    minPitch: 1
+    maxPitch: 1
+    volume: 1
+  - name: playerHitGround
+    clip: {fileID: 8300000, guid: 23ead84b56aa1944f88f203a18c5afdb, type: 3}
     minPitch: 1
     maxPitch: 1
     volume: 1
