@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.velocity = _currSpeed * GravityDirection;
     }
 
-    public void KnockedBackState()
+    public void EatingState()
     {
         if (_knockbackTimer <= 0)
         {

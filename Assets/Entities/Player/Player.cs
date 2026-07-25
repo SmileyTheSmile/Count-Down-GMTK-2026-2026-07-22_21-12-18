@@ -14,19 +14,33 @@ public class Player : MonoBehaviour
     [SerializeField] private int _bloodNum = 5;
 
     private bool _isGrounded = false;
-    private bool _isColliding = false;
     private bool _canMove = true;
 
     private Vector2 _groundCheckBoxSize;
-    private float _groundCheckDistance = 0.5f;
+    private Vector2 _groundCheckOrigin;
+    private Vector2 _groundCheckBoxSizeVertical;
+    private Vector2 _groundCheckBoxSizeHorizontal;
+    private float _groundCheckDistance;
+    private float _groundCheckDistanceHorizontal;
+    private float _groundCheckDistanceVertical;
 
     private void Awake()
     {
-        _groundCheckBoxSize = new Vector2(_collider.bounds.size.x, _collider.bounds.size.y * 0.1f);
+        _groundCheckBoxSizeVertical = new Vector2(_collider.bounds.size.x, _collider.bounds.size.y * 0.1f);
+        _groundCheckBoxSizeHorizontal = new Vector2(_collider.bounds.size.y * 0.1f, _collider.bounds.size.y);
+
+        _groundCheckOrigin = (Vector2)_collider.transform.position + _collider.offset;
+
+        _groundCheckDistanceHorizontal = _collider.bounds.size.x / 2;
+        _groundCheckDistanceVertical = _collider.bounds.size.y / 2;
+
+        _groundCheckDistance = _groundCheckDistanceVertical;
+        _groundCheckBoxSize = _groundCheckBoxSizeVertical;
     }
 
     private void Update()
     {
+        Debug.Log($"_groundCheckOrigin: {_groundCheckOrigin}, _collider.transform.position: {_collider.transform.position}");
         if (!_canMove) return;
 
         ProcessInput();
@@ -34,8 +48,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        //Debug.Log($"IsGrounded: {_isGrounded}, IsColliding: {_isColliding}, CanMove: {_canMove}");
+        _groundCheckOrigin = (Vector2)_collider.transform.position + _collider.offset;
 
         if (!_isGrounded)
         {
@@ -45,22 +58,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        _isColliding = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        _isColliding = false;
-    }
-
     private void CheckHit()
     {
+        Debug.Log($"IsGrounded: {_isGrounded}, CanMove: {_canMove}");
         int detectionMask = LayerMask.GetMask("Ground", "Enemies");
 
         RaycastHit2D hit = Physics2D.BoxCast(
-            transform.position,
+            _groundCheckOrigin,
             _groundCheckBoxSize,
             0f,
             _movement.GravityDirection,
@@ -86,6 +90,8 @@ public class Player : MonoBehaviour
                 HitGround();
             else if (hitLayer == LayerMask.NameToLayer("Enemies"))
                 HitEnemy(hit.transform);
+            else if (hitLayer == LayerMask.NameToLayer("Peasants"))
+                HitPeasant(hit.transform);
         }
         else if (_isGrounded && oldIsGrounded)
         {
@@ -95,8 +101,16 @@ public class Player : MonoBehaviour
 
     private void ChangeGravityDirection(Vector2 newDirection)
     {
-        if (newDirection.x == 0 && _movement.GravityDirection.x != 0 || newDirection.y == 0 && _movement.GravityDirection.y != 0)
-            _groundCheckBoxSize = new Vector2(_groundCheckBoxSize.y, _groundCheckBoxSize.x);
+        if (newDirection.x == 0 && _movement.GravityDirection.x != 0)
+        {
+            _groundCheckBoxSize = _groundCheckBoxSizeVertical;
+            _groundCheckDistance = _groundCheckDistanceVertical;
+        }
+        else if (newDirection.y == 0 && _movement.GravityDirection.y != 0)
+        {
+            _groundCheckBoxSize = _groundCheckBoxSizeHorizontal; ;
+            _groundCheckDistance = _groundCheckDistanceHorizontal;
+        }
 
         _movement.GravityDirection = newDirection;
         CheckHit();
@@ -156,6 +170,12 @@ public class Player : MonoBehaviour
         _canMove = true;
     }
 
+    private void HitPeasant(Transform transform)
+    {
+        _movement.Stop();
+        Hurt();
+    }
+
     private void Death()
     {
         Debug.Log("Player died");
@@ -172,7 +192,7 @@ public class Player : MonoBehaviour
         Gizmos.color = _isGrounded ? Color.green : Color.red;
 
         // Calculate the end position of the box based on direction and distance
-        Vector3 endPosition = transform.position + (Vector3)(_movement.GravityDirection * _groundCheckDistance);
+        Vector3 endPosition = _groundCheckOrigin + (_movement.GravityDirection * _groundCheckDistance);
 
         // Draw a wire cube to represent the BoxCast area
         Gizmos.DrawWireCube(endPosition, _groundCheckBoxSize);
@@ -181,6 +201,8 @@ public class Player : MonoBehaviour
         style.normal.textColor = Color.red;
         style.fontSize = 30;
         style.fontStyle = FontStyle.Bold;
+
+        Gizmos.DrawWireSphere((Vector2)_collider.transform.position + _collider.offset, 0.1f);
 
         Handles.Label(transform.position + Vector3.up, $"Blood: {_bloodNum}", style);
     }
