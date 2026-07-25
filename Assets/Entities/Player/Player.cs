@@ -1,105 +1,105 @@
+using UnityEditor;
 using UnityEngine;
+using static Cinemachine.CinemachineBlendDefinition;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private CollisionCheck _checkDown;
-    [SerializeField] private CollisionCheck _checkUp;
-    [SerializeField] private CollisionCheck _checkLeft;
-    [SerializeField] private CollisionCheck _checkRight;
+    public PlayerSpawn SpawnPoint { get; set; }
 
-    [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private BoxCollider2D _collider;
 
-    [SerializeField] private float _acceleration = 10f;
-    [SerializeField] private float _maxSpeed = 10f;
+    [SerializeField] private PlayerMovement _movement;
 
     [SerializeField] private int _bloodNum = 5;
 
-    private Vector2 _gravityDirection = Vector2.down;
-    private float _currSpeed = 0;
     private bool _isGrounded = false;
-    private bool _collidingWithGround = false;
+    private bool _isColliding = false;
     private bool _canMove = true;
-    private bool _isKnockedBack = false;
 
     private Vector2 _groundCheckBoxSize;
     private float _groundCheckDistance = 0.5f;
 
-    #region Unity Functions
-
     private void Awake()
     {
-        _groundCheckBoxSize = new Vector2(_collider.bounds.size.x * 0.9f, _collider.bounds.size.y * 0.1f);
+        _groundCheckBoxSize = new Vector2(_collider.bounds.size.x, _collider.bounds.size.y * 0.1f);
     }
 
     private void Update()
     {
+        if (!_canMove) return;
+
         ProcessInput();
     }
 
     private void FixedUpdate()
     {
-        CheckIfGrounded();
-        ProcessMovement();
-        Debug.Log($"Is Grounded: {_isGrounded}");
+
+        //Debug.Log($"IsGrounded: {_isGrounded}, IsColliding: {_isColliding}, CanMove: {_canMove}");
+
+        if (!_isGrounded)
+        {
+            _movement.FallingState();
+            CheckHit();
+            return;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        foreach (ContactPoint2D contact in collision.contacts)
-        {
-            if (Vector2.Dot(contact.normal, _gravityDirection) >= -0.5f)
-                continue;
-
-            switch (collision.gameObject.layer)
-            {
-                case int layerValue when layerValue == LayerMask.NameToLayer("Enemies"):
-                    TouchedEnemy(collision);
-                    break;
-                case int layerValue when layerValue == LayerMask.NameToLayer("Ground"):
-                    _collidingWithGround = true;
-                    break;
-                default:
-                    Debug.Log("Player hit the unknown");
-                    Stop();
-                    break;
-            }
-        }
+        _isColliding = true;
     }
 
-    #endregion
-
-    #region Custom Functions
-
-    private void CheckIfGrounded()
+    private void OnCollisionExit2D(Collision2D collision)
     {
+        _isColliding = false;
+    }
+
+    private void CheckHit()
+    {
+        int detectionMask = LayerMask.GetMask("Ground", "Enemies");
+
         RaycastHit2D hit = Physics2D.BoxCast(
             transform.position,
             _groundCheckBoxSize,
             0f,
-            _gravityDirection,
+            _movement.GravityDirection,
             _groundCheckDistance,
-            LayerMask.GetMask("Ground")
+            detectionMask
         );
 
-        bool oldIsGrounded = _isGrounded;
+        if (hit.collider == null)
+        {
+            _isGrounded = false;
+            _canMove = false;
+            return;
+        }
 
-        // Returns true if the hit collider is not null
-        _isGrounded = hit.collider != null && _collidingWithGround;
+        int hitLayer = hit.collider.gameObject.layer;
+
+        bool oldIsGrounded = _isGrounded;
+        _isGrounded = hit.collider != null;
 
         if (_isGrounded && !oldIsGrounded)
-            HitGround();
+        { 
+            if (hitLayer == LayerMask.NameToLayer("Ground"))
+                HitGround();
+            else if (hitLayer == LayerMask.NameToLayer("Enemies"))
+                HitEnemy(hit.transform);
+        }
+        else if (_isGrounded && oldIsGrounded)
+        {
+            _canMove = true;
+        }
     }
 
     private void ChangeGravityDirection(Vector2 newDirection)
     {
-        if (newDirection.x == 0 && _gravityDirection.x != 0 || newDirection.y == 0 && _gravityDirection.y != 0)
+        if (newDirection.x == 0 && _movement.GravityDirection.x != 0 || newDirection.y == 0 && _movement.GravityDirection.y != 0)
             _groundCheckBoxSize = new Vector2(_groundCheckBoxSize.y, _groundCheckBoxSize.x);
 
-        _gravityDirection = newDirection;
-        //_isGrounded = false;
-        SoundManager.Instance.PlaySound("gravityChange", transform);
+        _movement.GravityDirection = newDirection;
+        CheckHit();
     }
 
     private void ProcessInput()
@@ -107,56 +107,64 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             ChangeGravityDirection(Vector2.up);
+            SoundManager.Instance.PlaySound("gravityChange", transform);
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             ChangeGravityDirection(Vector2.down);
+            SoundManager.Instance.PlaySound("gravityChange", transform);
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             ChangeGravityDirection(Vector2.left);
+            SoundManager.Instance.PlaySound("gravityChange", transform);
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             ChangeGravityDirection(Vector2.right);
+            SoundManager.Instance.PlaySound("gravityChange", transform);
         }
-    }
-
-    private void ProcessMovement()
-    {
-        if (_isGrounded) return;
-
-        _currSpeed = Mathf.MoveTowards(_currSpeed, _maxSpeed, _acceleration * Time.fixedDeltaTime);
-        _rigidbody.velocity = _currSpeed * _gravityDirection;
     }
     
     private void Hurt()
     {
         _bloodNum -= 1;
+        if (_bloodNum <= 0)
+        {
+            Death();
+            return;
+        }
+
+        ChangeGravityDirection( Vector2.down);
+        _canMove = true;
+        SpawnPoint.Respawn();
         SoundManager.Instance.PlaySound("playerHurt", transform);
         CinemachineShake.Instance.ShakeCamera(5f, 0.1f);
     }
     
-    private void TouchedEnemy(Collision2D collision)
+    private void HitEnemy(Transform transform)
     {
-        Stop();
+        _movement.Stop();
         Hurt();
     }
 
     private void HitGround()
     {
-        Stop();
+        _movement.Stop();
         SoundManager.Instance.PlaySound("playerHitGround", transform);
-        CinemachineShake.Instance.ShakeCamera(5f, 0.1f);
+        CinemachineShake.Instance.ShakeCamera(1f, 0.05f);
+        _canMove = true;
     }
 
-    private void Stop()
+    private void Death()
     {
-        _currSpeed = 0f;
-        _rigidbody.velocity = Vector2.zero;
+        Debug.Log("Player died");
+        SoundManager.Instance.PlaySound("playerDeath1", transform);
+        SoundManager.Instance.PlaySound("playerDeath2", transform);
+        CinemachineShake.Instance.ShakeCamera(10f, 0.2f);
+        SpawnPoint.Respawn();
+        _canMove = true;
     }
-
-    #endregion
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -164,10 +172,17 @@ public class Player : MonoBehaviour
         Gizmos.color = _isGrounded ? Color.green : Color.red;
 
         // Calculate the end position of the box based on direction and distance
-        Vector3 endPosition = transform.position + (Vector3)(_gravityDirection * _groundCheckDistance);
+        Vector3 endPosition = transform.position + (Vector3)(_movement.GravityDirection * _groundCheckDistance);
 
         // Draw a wire cube to represent the BoxCast area
         Gizmos.DrawWireCube(endPosition, _groundCheckBoxSize);
+
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.red;
+        style.fontSize = 30;
+        style.fontStyle = FontStyle.Bold;
+
+        Handles.Label(transform.position + Vector3.up, $"Blood: {_bloodNum}", style);
     }
 #endif
 }
