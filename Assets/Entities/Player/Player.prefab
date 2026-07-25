@@ -454,6 +454,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4970527912516158998, guid: e4474b88f0f197e4ba4779b45faf5354, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1964027813, guid: 1cf727cd4f58a03479c4d8e1b37d5a58, type: 3}
+    - target: {fileID: 6149118341243094074, guid: e4474b88f0f197e4ba4779b45faf5354, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 765541a2d4e89e343ac4e3bcadfe01e6, type: 2}
     - target: {fileID: 8918148451469245548, guid: e4474b88f0f197e4ba4779b45faf5354, type: 3}
       propertyPath: m_Name
       value: Animation
