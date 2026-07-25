@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private CollisionCheck _checkRight;
 
     [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private BoxCollider2D _collider;
 
     [SerializeField] private float _acceleration = 10f;
     [SerializeField] private float _maxSpeed = 10f;
@@ -18,10 +19,19 @@ public class Player : MonoBehaviour
     private Vector2 _gravityDirection = Vector2.down;
     private float _currSpeed = 0;
     private bool _isGrounded = false;
+    private bool _collidingWithGround = false;
     private bool _canMove = true;
     private bool _isKnockedBack = false;
 
+    private Vector2 _groundCheckBoxSize;
+    private float _groundCheckDistance = 0.5f;
+
     #region Unity Functions
+
+    private void Awake()
+    {
+        _groundCheckBoxSize = new Vector2(_collider.bounds.size.x * 0.9f, _collider.bounds.size.y * 0.1f);
+    }
 
     private void Update()
     {
@@ -30,6 +40,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CheckIfGrounded();
         ProcessMovement();
         Debug.Log($"Is Grounded: {_isGrounded}");
     }
@@ -47,10 +58,7 @@ public class Player : MonoBehaviour
                     TouchedEnemy(collision);
                     break;
                 case int layerValue when layerValue == LayerMask.NameToLayer("Ground"):
-                    Debug.Log("Player hit the ground");
-                    SoundManager.Instance.PlaySound("playerHitGround", transform);
-                    Stop();
-                    _isGrounded = true;
+                    _collidingWithGround = true;
                     break;
                 default:
                     Debug.Log("Player hit the unknown");
@@ -64,10 +72,33 @@ public class Player : MonoBehaviour
 
     #region Custom Functions
 
+    private void CheckIfGrounded()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(
+            transform.position,
+            _groundCheckBoxSize,
+            0f,
+            _gravityDirection,
+            _groundCheckDistance,
+            LayerMask.GetMask("Ground")
+        );
+
+        bool oldIsGrounded = _isGrounded;
+
+        // Returns true if the hit collider is not null
+        _isGrounded = hit.collider != null && _collidingWithGround;
+
+        if (_isGrounded && !oldIsGrounded)
+            HitGround();
+    }
+
     private void ChangeGravityDirection(Vector2 newDirection)
     {
+        if (newDirection.x == 0 && _gravityDirection.x != 0 || newDirection.y == 0 && _gravityDirection.y != 0)
+            _groundCheckBoxSize = new Vector2(_groundCheckBoxSize.y, _groundCheckBoxSize.x);
+
         _gravityDirection = newDirection;
-        _isGrounded = false;
+        //_isGrounded = false;
         SoundManager.Instance.PlaySound("gravityChange", transform);
     }
 
@@ -105,11 +136,18 @@ public class Player : MonoBehaviour
         SoundManager.Instance.PlaySound("playerHurt", transform);
         CinemachineShake.Instance.ShakeCamera(5f, 0.1f);
     }
+    
     private void TouchedEnemy(Collision2D collision)
     {
-        Debug.Log("Player hit the enemy");
         Stop();
         Hurt();
+    }
+
+    private void HitGround()
+    {
+        Stop();
+        SoundManager.Instance.PlaySound("playerHitGround", transform);
+        CinemachineShake.Instance.ShakeCamera(5f, 0.1f);
     }
 
     private void Stop()
@@ -119,4 +157,17 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = _isGrounded ? Color.green : Color.red;
+
+        // Calculate the end position of the box based on direction and distance
+        Vector3 endPosition = transform.position + (Vector3)(_gravityDirection * _groundCheckDistance);
+
+        // Draw a wire cube to represent the BoxCast area
+        Gizmos.DrawWireCube(endPosition, _groundCheckBoxSize);
+    }
+#endif
 }

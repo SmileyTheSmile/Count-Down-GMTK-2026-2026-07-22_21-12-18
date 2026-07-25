@@ -44,9 +44,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1588144157829352897}
-  - component: {fileID: 230793936453488062}
   - component: {fileID: 5293120812251372146}
   - component: {fileID: 5030518541406793755}
+  - component: {fileID: 230793936453488062}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -71,29 +71,6 @@ Transform:
   - {fileID: 963731765133117629}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &230793936453488062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3530078487230947514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abc1bdfb492b1104791cfd270a7f95ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _checkDown: {fileID: 4176692798699953902}
-  _checkUp: {fileID: 2258144169910493495}
-  _checkLeft: {fileID: 8769128027755019298}
-  _checkRight: {fileID: 2898897378769632393}
-  _rigidbody: {fileID: 5293120812251372146}
-  _acceleration: 100
-  _maxSpeed: 20
-  knockbackForce: 10
-  knockbackDuration: 0.2
-  _groundCheckDistance: 0.2
-  _bloodNum: 5
 --- !u!50 &5293120812251372146
 Rigidbody2D:
   serializedVersion: 4
@@ -166,6 +143,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &230793936453488062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530078487230947514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc1bdfb492b1104791cfd270a7f95ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _checkDown: {fileID: 4176692798699953902}
+  _checkUp: {fileID: 2258144169910493495}
+  _checkLeft: {fileID: 8769128027755019298}
+  _checkRight: {fileID: 2898897378769632393}
+  _rigidbody: {fileID: 5293120812251372146}
+  _collider: {fileID: 5030518541406793755}
+  _acceleration: 100
+  _maxSpeed: 20
+  _bloodNum: 5
 --- !u!1001 &870778827116332679
 PrefabInstance:
   m_ObjectHideFlags: 0
