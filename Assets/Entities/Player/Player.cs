@@ -65,6 +65,8 @@ public class Player : MonoBehaviour
     
     private void FixedUpdate()
     {
+        CheckHealth();
+
         _groundCheckOrigin = _collider.bounds.center;
 
         if (_isEating)
