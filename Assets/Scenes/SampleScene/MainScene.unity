@@ -210,6 +210,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b6e5372becd4eb408fda2a76a4686fa, type: 3}
+--- !u!1001 &1042687494
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5309490154279354794, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8550.368
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480448039653083423, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496890037957895883, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_Name
+      value: Castlemanager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496890037957895883, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ffad1f0cea17685498962f0186dcef45, type: 3}
 --- !u!1001 &2003872911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -464,6 +529,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drakula
       objectReference: {fileID: 0}
+    - target: {fileID: 1951985457318214972, guid: ae03273265d62d647ae048d5ab4c5016, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6190327405667706278, guid: ae03273265d62d647ae048d5ab4c5016, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6190327405667706278, guid: ae03273265d62d647ae048d5ab4c5016, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1841160531
+      objectReference: {fileID: 0}
     - target: {fileID: 8663120443897042923, guid: ae03273265d62d647ae048d5ab4c5016, type: 3}
       propertyPath: _defaultFace
       value: 
@@ -478,6 +555,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 7349944765378419005}
+  - {fileID: 1042687494}
   - {fileID: 531369093}
   - {fileID: 1944497585101741171}
   - {fileID: 2003872911}
