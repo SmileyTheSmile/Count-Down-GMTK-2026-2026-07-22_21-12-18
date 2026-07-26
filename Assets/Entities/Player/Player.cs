@@ -51,6 +51,9 @@ public class Player : MonoBehaviour
         _groundCheckDistanceHorizontal = _collider.bounds.extents.x;
         _groundCheckDistanceVertical = _collider.bounds.extents.y;
 
+        Debug.Log(_groundCheckDistanceHorizontal);
+        Debug.Log(_groundCheckDistanceVertical);
+
         _groundCheckDistance = _groundCheckDistanceVertical;
         _groundCheckBoxSize = _groundCheckBoxSizeVertical;
 
@@ -59,6 +62,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(_groundCheckOrigin);
         CheckHealth();
 
         if (!_canMove) return;
@@ -154,7 +158,7 @@ public class Player : MonoBehaviour
         }
         else if (newDirection.y == 0 && GravityDirection.y != 0)
         {
-            _groundCheckBoxSize = _groundCheckBoxSizeHorizontal; ;
+            _groundCheckBoxSize = _groundCheckBoxSizeHorizontal;
             _groundCheckDistance = _groundCheckDistanceHorizontal;
         }
 
