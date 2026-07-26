@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6381698943758795843}
   - component: {fileID: 6667040569178958621}
-  m_Layer: 0
-  m_Name: CastleManager
+  - component: {fileID: 3503050691690543780}
+  m_Layer: 5
+  m_Name: Castlemanager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1841160531
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 543999257, guid: 36a78e5e53940694386177b6a4832fc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -84,3 +85,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3503050691690543780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8593063662637600409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cbad2c92b2b304bb1be47917f6a8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 6667040569178958621}
+  _stage1: {fileID: 543999257, guid: 36a78e5e53940694386177b6a4832fc2, type: 3}
+  _stage2: {fileID: -2098951348, guid: 36a78e5e53940694386177b6a4832fc2, type: 3}
+  _stage3: {fileID: 825539586, guid: 36a78e5e53940694386177b6a4832fc2, type: 3}
