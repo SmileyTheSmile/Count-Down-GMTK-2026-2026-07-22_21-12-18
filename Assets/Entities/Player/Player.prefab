@@ -122,14 +122,9 @@ MonoBehaviour:
   _collider: {fileID: 5030518541406793755}
   _peasantBloodValue: 3
   _rigidbody: {fileID: 5293120812251372146}
-<<<<<<< Updated upstream
+  _animator: {fileID: 7133491675890975447}
   _acceleration: 125
   _maxSpeed: 30
-=======
-  _animator: {fileID: 7133491675890975447}
-  _acceleration: 100
-  _maxSpeed: 20
->>>>>>> Stashed changes
   _groundCheckBoxHeight: 0.1
   _groundCheckDistance: 0
   GravityDirection: {x: 0, y: -1}
