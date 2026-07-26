@@ -1,8 +1,4 @@
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using static Cinemachine.CinemachineBlendDefinition;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
