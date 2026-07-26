@@ -120,17 +120,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 5030518541406793755}
-  _defaultBloodNum: 20
-  _bloodNum: 3
   _peasantBloodValue: 3
   _rigidbody: {fileID: 5293120812251372146}
-  _acceleration: 100
-  _maxSpeed: 20
+  _acceleration: 125
+  _maxSpeed: 30
   _groundCheckBoxHeight: 0.1
   _groundCheckDistance: 0
   GravityDirection: {x: 0, y: -1}
   _snapTargetPosition: {x: 0, y: 0}
   _isSnapping: 0
+  _isEating: 0
+  _isHooked: 0
+  CanHook: 1
 --- !u!1001 &4010823182571423469
 PrefabInstance:
   m_ObjectHideFlags: 0
