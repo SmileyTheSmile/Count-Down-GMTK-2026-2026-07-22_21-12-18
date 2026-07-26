@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private int _peasantBloodValue = 3;
     [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private Animator _animator;
     [SerializeField] private float _acceleration = 150f;
     [SerializeField] private float _maxSpeed = 30f;
     [SerializeField] private float _groundCheckBoxHeight = 0.1f;
@@ -53,8 +52,6 @@ public class Player : MonoBehaviour
 
         _groundCheckDistance = _groundCheckDistanceVertical;
         _groundCheckBoxSize = _groundCheckBoxSizeVertical;
-
-        _animator.Play("playerIdleAnimation");
     }
 
     private void Update()
@@ -174,25 +171,21 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            _animator.Play("playerFlyTopAnimation");
             ChangeGravityDirection(Vector2.up);
             SoundManager.Instance.PlaySound("gravityChange", transform);
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            _animator.Play("playerFlyDownAnimation");
             ChangeGravityDirection(Vector2.down);
             SoundManager.Instance.PlaySound("gravityChange", transform);
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            _animator.Play("playerFlyLeftAnimation");
             ChangeGravityDirection(Vector2.left);
             SoundManager.Instance.PlaySound("gravityChange", transform);
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            _animator.Play("playerFlyRightAnimation");
             ChangeGravityDirection(Vector2.right);
             SoundManager.Instance.PlaySound("gravityChange", transform);
         }
@@ -236,14 +229,6 @@ public class Player : MonoBehaviour
         _isGrounded = true;
         SoundManager.Instance.PlaySound("playerHitGround", transform);
         CinemachineShake.Instance.ShakeCamera(1f, 0.05f);
-        if (GravityDirection == Vector2.up)
-            _animator.Play("playerIdleTopAnimation");
-        else if (GravityDirection == Vector2.down)
-            _animator.Play("playerIdleAnimation");
-        else if (GravityDirection == Vector2.left)
-            _animator.Play("playerIdleLeftAnimation");
-        else if (GravityDirection == Vector2.right)
-            _animator.Play("playerIdleRightAnimation");
 
         _canMove = true;
     }
