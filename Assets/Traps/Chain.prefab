@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4171544321564102831}
   - component: {fileID: 148980857395041417}
+  - component: {fileID: 490796924648060069}
   m_Layer: 11
   m_Name: Chain
   m_TagString: Untagged
@@ -162,3 +163,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6708466, y: 0.672238}
   m_EdgeRadius: 0
+--- !u!114 &490796924648060069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7363856845262480983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a374eccf09d3af14989e7659e469d0d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
