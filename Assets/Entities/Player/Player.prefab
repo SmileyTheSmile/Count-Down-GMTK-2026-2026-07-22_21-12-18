@@ -122,8 +122,14 @@ MonoBehaviour:
   _collider: {fileID: 5030518541406793755}
   _peasantBloodValue: 3
   _rigidbody: {fileID: 5293120812251372146}
+<<<<<<< Updated upstream
   _acceleration: 125
   _maxSpeed: 30
+=======
+  _animator: {fileID: 7133491675890975447}
+  _acceleration: 100
+  _maxSpeed: 20
+>>>>>>> Stashed changes
   _groundCheckBoxHeight: 0.1
   _groundCheckDistance: 0
   GravityDirection: {x: 0, y: -1}
@@ -204,5 +210,10 @@ PrefabInstance:
 --- !u!4 &25379873469800103 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4031676813142841418, guid: e4474b88f0f197e4ba4779b45faf5354, type: 3}
+  m_PrefabInstance: {fileID: 4010823182571423469}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7133491675890975447 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6149118341243094074, guid: e4474b88f0f197e4ba4779b45faf5354, type: 3}
   m_PrefabInstance: {fileID: 4010823182571423469}
   m_PrefabAsset: {fileID: 0}

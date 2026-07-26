@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 638042671904823798}
   - component: {fileID: -1083479311891625586}
+  - component: {fileID: 3926132802829114089}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -128,3 +129,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3926132802829114089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384487827042205915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a69c9a6c3e1358141bc13b67c5cb772f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: -1083479311891625586}
+  _victoryMusic: {fileID: 8300000, guid: aa574baa8922daa479b7dcd75b63e0d4, type: 3}

@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
         Destroy(_currentLevel);
         _currentLevelNum++;
         _currentLevel = Instantiate(_levels[_currentLevelNum], Vector3.zero, Quaternion.identity);
+        if (_currentLevelNum == _levels.Count - 1)
+        {
+            MusicManager.Instance.PlayVictoryMusic();
+        }
     }
 
     public void Restart()
