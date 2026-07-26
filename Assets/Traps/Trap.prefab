@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7546026060763373301}
   - component: {fileID: 6451517858451404508}
   - component: {fileID: 2987845437211543029}
-  m_Layer: 0
+  - component: {fileID: 6956332479573653643}
+  m_Layer: 10
   m_Name: Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1412020707
-  m_SortingLayer: 2
+  m_SortingLayerID: 544474359
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: 1952430378, guid: 938dc2b2b46eda644a7c782bb2d9e6ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -114,10 +115,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0008943379, y: 0.25}
+  m_Offset: {x: -0.0023272634, y: 0.19104111}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -128,5 +129,32 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7549574, y: 0.5}
+  m_Size: {x: 0.88363373, y: 0.38208222}
   m_EdgeRadius: 0
+--- !u!50 &6956332479573653643
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515979295456121657}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7

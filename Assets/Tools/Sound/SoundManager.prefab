@@ -60,7 +60,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 23ead84b56aa1944f88f203a18c5afdb, type: 3}
     minPitch: 1
     maxPitch: 1
-    volume: 1
+    volume: 0.7
   - name: playerDeath1
     clip: {fileID: 8300000, guid: df13313c32c8b9f42920e63c86690347, type: 3}
     minPitch: 1
@@ -71,3 +71,18 @@ MonoBehaviour:
     minPitch: 1
     maxPitch: 1
     volume: 0.6
+  - name: playerHealthUp
+    clip: {fileID: 8300000, guid: 08887c8a01ef9f441bb4d2610e4f8349, type: 3}
+    minPitch: 1
+    maxPitch: 1
+    volume: 1
+  - name: peasantHit
+    clip: {fileID: 8300000, guid: 7723cac175dd2cc4abb3ae8f1e264b07, type: 3}
+    minPitch: 1
+    maxPitch: 1
+    volume: 1
+  - name: nextLevel
+    clip: {fileID: 8300000, guid: 4b3c0aa920fdbf34d813f3706bb3b906, type: 3}
+    minPitch: 1
+    maxPitch: 1
+    volume: 1

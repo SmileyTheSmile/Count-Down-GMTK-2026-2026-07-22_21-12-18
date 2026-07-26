@@ -17,7 +17,7 @@ TagManager:
   - Peasants
   - Player
   - Hazards
-  - 
+  - Tools
   - 
   - 
   - 
@@ -56,4 +56,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1565993217
+    locked: 0
+  - name: Hazards
+    uniqueID: 544474359
+    locked: 0
+  - name: UI
+    uniqueID: 2453806765
     locked: 0
