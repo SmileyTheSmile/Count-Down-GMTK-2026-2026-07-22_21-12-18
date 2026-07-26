@@ -13,8 +13,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private int _peasantBloodValue = 3;
     [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private float _acceleration = 100f;
-    [SerializeField] private float _maxSpeed = 20f;
+    [SerializeField] private float _acceleration = 150f;
+    [SerializeField] private float _maxSpeed = 30f;
     [SerializeField] private float _groundCheckBoxHeight = 0.1f;
     [SerializeField] private float _groundCheckDistance;
 
@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public bool _isSnapping = false;
     public bool _isEating = false;
     public bool _isHooked = false;
+    public bool CanHook = true;
     private float _snapSpeed = 10;
 
     private bool _isGrounded = false;
@@ -66,7 +67,7 @@ public class Player : MonoBehaviour
     {
         _groundCheckOrigin = _collider.bounds.center;
 
-        Debug.Log($"Grounded: {_isGrounded}, CanMove: {_canMove}, Snapping: {_isSnapping}, Hooked: {_isHooked}");
+        Debug.Log($"Grounded: {_isGrounded}, CanMove: {_canMove}, Snapping: {_isSnapping}, Hooked: {_isHooked}, {CanHook}");
 
         if (_isEating)
         {
@@ -158,8 +159,9 @@ public class Player : MonoBehaviour
 
         if (_isHooked)
         {
-            _lastHitTarget.GetComponent<Chain>().Reload();
+            Debug.Log($"{CanHook}");
             _rigidbody.bodyType = RigidbodyType2D.Dynamic;
+            CanHook = false;
             _isHooked = false;
             _canMove = true;
         }
@@ -249,7 +251,7 @@ public class Player : MonoBehaviour
 
     private void HitHook(RaycastHit2D hook)
     {
-        if (_isHooked) return; 
+        if (!CanHook || _isHooked) return; 
         Stop();
 
         Vector2 target = hook.collider.bounds.center;
@@ -264,7 +266,7 @@ public class Player : MonoBehaviour
         CinemachineShake.Instance.ShakeCamera(10f, 0.2f);
         SpawnPoint.Respawn();
         HealthManager.Instance.Reset();
-        //GameManager.Instance.Restart();
+        GameManager.Instance.Restart();
         _canMove = true;
     }
     

@@ -7,8 +7,7 @@ public class HealthManager : MonoBehaviour
     public static HealthManager Instance { get; private set; }
     public BloodUI BloodUI;
     public int Health = 20;
-    public int DefaultBloodNum = 20;
-    public int MaxHealth = 20;
+    public int MaxHealth = 30;
 
     [SerializeField] private float _hurtInterval = 1.0f;
 
@@ -46,7 +45,7 @@ public class HealthManager : MonoBehaviour
     }
     public void Reset()
     {
-        Health = DefaultBloodNum;
+        Health = MaxHealth;
         BloodUI.UpdateHealth();
     }
 }

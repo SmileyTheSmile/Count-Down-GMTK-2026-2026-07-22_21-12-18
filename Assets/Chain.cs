@@ -17,30 +17,30 @@ public class Chain : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        collision.gameObject.GetComponent<Player>().CanHook = true;
     }
 
-    public void Reload()
-    {
-        _collider.enabled = false;
-        isReloading = true;
-        timer = 0f;
-    }
+    //public void Reload()
+    //{
+    //    _collider.enabled = false;
+    //    isReloading = true;
+    //    timer = 0f;
+    //}
 
-    void Update()
-    {
-        if (!isReloading) return;
+    //void Update()
+    //{
+    //    if (!isReloading) return;
 
-        Debug.Log("Collider disabled, waiting to reload...");
+    //    Debug.Log("Collider disabled, waiting to reload...");
 
-        timer += Time.deltaTime;
+    //    timer += Time.deltaTime;
 
-        if (timer >= reloadInterval)
-        {
-            _collider.enabled = true;
-            timer = 0f;
-        }
-    }
+    //    if (timer >= reloadInterval)
+    //    {
+    //        _collider.enabled = true;
+    //        timer = 0f;
+    //    }
+    //}
 
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
