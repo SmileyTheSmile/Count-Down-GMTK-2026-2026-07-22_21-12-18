@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3525275288605473941}
   - component: {fileID: 4396765089200750559}
   - component: {fileID: 7260163113259528699}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LightFx1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
